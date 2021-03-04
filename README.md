@@ -27,3 +27,29 @@ cd web-server
 ```
 docker-compose up
 ```
+### No DockerCompose Installation
+MySQL DB for holding data
+```
+docker run -e MYSQL_ROOT_PASSWORD=my-secret-pw -p 3306:3306 mysql
+```
+Redis for broker and backend to Celery
+```
+docker run -it --rm --name redis --net redis -p 6379:6379 redis:6.0-alpine
+```
+```
+cd app
+```
+Initiate the Celery workers and Beat.
+```
+celery -A worker.celery_worker worker -l info
+```
+```
+celery -A worker.celery_worker beat -l info
+```
+```
+cd ../web-server
+```
+Run the web server.
+```
+uvicorn main:app --reload
+```
