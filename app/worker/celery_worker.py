@@ -1,4 +1,4 @@
-from app.worker.celery_app import celery_app
+from worker.celery_app import celery_app
 from googleapiclient.discovery import build
 import json
 import mysql.connector
@@ -10,7 +10,7 @@ api_key = "AIzaSyAI-ST49GD3voArhrTmIfsRYid5IvG6tgM"
 
 youtube = build("youtube", "v3", developerKey=api_key)
 
-db = mysql.connector.connect(host="localhost", user="root", passwd="my-secret-pw", database="yt_api")
+db = mysql.connector.connect(host="0.0.0.0", user="root", passwd="my-secret-pw", database="yt_api")
 mycursor = db.cursor()
 
 celery_app.conf.beat_schedule = {
