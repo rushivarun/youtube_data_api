@@ -1,0 +1,26 @@
+version: "3.7"
+
+services:
+  redis:
+    image: "redis:6.0-alpine"
+    ports:
+      - "6379:6379"
+  
+  mysql:
+    image: "mysql"
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=my-secret-pw
+
+  worker:
+    build: .
+    depends_on:
+      - redis
+    command: "ls"
+  
+  beat:
+    build: .
+    depends_on:
+      - redis
+    command: "ls"
