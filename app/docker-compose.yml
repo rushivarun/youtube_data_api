@@ -10,6 +10,8 @@ services:
     build: ./mysql-conf/
     ports:
       - "3306:3306"
+    volumes:
+      - ./mysql-conf/conf.d:/etc/mysql/conf.d
 
   worker:
     build: .
