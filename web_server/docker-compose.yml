@@ -1,20 +1,16 @@
 version: "3.7"
 
 services:
-  redis:
-    image: "redis:6.0-alpine"
-    ports:
-      - "6379:6379"
 
-  worker:
+  fastapi:
     build: .
-    depends_on:
-      - rabbitmq
-      - redis
-    command: "celery -A app.worker.celery_worker worker -l info"
-  
-  beat:
-    build: .
-    depends_on:
-      - redis
-    command: "celery -A app.worker.celery_worker beat -l info"
+    command: "uvicorn main:app --reload"
+
+  mysql:
+    image: "mysql"
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=my-secret-pw
+
+

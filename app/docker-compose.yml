@@ -7,13 +7,9 @@ services:
       - "6379:6379"
   
   mysql:
-    image: "mysql"
+    build: ./mysql-conf/
     ports:
       - "3306:3306"
-    environment:
-      - MYSQL_ROOT_PASSWORD=my-secret-pw
-    volumes:
-      - my.cnf:/etc/mysql/conf.d
 
   worker:
     build: .
