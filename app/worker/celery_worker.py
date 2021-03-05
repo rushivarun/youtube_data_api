@@ -6,13 +6,19 @@ from datetime import timedelta, datetime, timezone
 
 import logging
 
+# Youtube API key.
+# Make ENV Variable pushed through docker container.
 api_key = "AIzaSyAI-ST49GD3voArhrTmIfsRYid5IvG6tgM"
 
 youtube = build("youtube", "v3", developerKey=api_key)
 
+
+# MySQL db connection.
+# Use env variables in prod.
 db = mysql.connector.connect(host="0.0.0.0", user="root", passwd="my-secret-pw", database="yt_api")
 mycursor = db.cursor()
 
+# Celery beat initiation for scheduling the task of pinging youtube constantly.
 celery_app.conf.beat_schedule = {
         'youtube-beat': {
             'task': 'youtube_dialer',
@@ -20,6 +26,8 @@ celery_app.conf.beat_schedule = {
         },
     }
 
+
+# A helper function for youtube dialer in order to asist insertions to the mysql db.
 def sql_instert_gen(snippet):
     title = snippet["title"]
     description = snippet["description"]
@@ -35,19 +43,19 @@ def sql_instert_gen(snippet):
     
         # Commit your changes in the database
         db.commit()
-
+        return json.dumps({
+            "response": "Insertion successful,
+            "status": True
+        })
     except:
         # Rolling back in case of error
         db.rollback()
+        return json.dumps({
+            "response": "Database rollback: Unable to execute insertion.",
+            "status": False
+        })
 
-    # print("Data inserted")
-
-
-    # mycursor.execute("INSERT INTO Football1 (title, description, publishedAT) VALUES (%s, %s, %s)", (title, description, publishedAt))
-    # db.commit()
-    return True
-
-
+# Celery task named youtube dialer which is triggered using celery beat every 10 seconds.
 @celery_app.task(name="youtube_dialer")
 def youtube_dialer():
     latest_timestamp_arg = datetime.now(timezone.utc) - timedelta(hours=0, minutes=0, seconds=30)
@@ -68,7 +76,13 @@ def youtube_dialer():
         for i in response["items"]:
             snippet = i["snippet"]
             insert_command = sql_instert_gen(snippet)
-        return "added"
+        return json.dumps({
+            "response": "Added video data on topic football",
+            "status": True
+        })
 
     else:
-        return "wait pls"
+        return json.dumps({
+            "response": "No new videos to be inserted to the table",
+            "status": True
+        })
