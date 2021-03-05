@@ -14,7 +14,7 @@ youtube = build("youtube", "v3", developerKey=api_key)
 
 
 # MySQL db connection.
-# Use env variables in prod.
+# Use env variables in prod inject using docker container
 db = mysql.connector.connect(host="0.0.0.0", user="root", passwd="my-secret-pw", database="yt_api")
 mycursor = db.cursor()
 

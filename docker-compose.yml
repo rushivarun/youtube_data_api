@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+  redis:
+    image: "redis:6.0-alpine"
+    ports:
+      - "6379:6379"
+  
+  mysql:
+    build: ./app/mysql-conf/
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql-conf/conf.d:/etc/mysql/conf.d
+
+  worker:
+    build: ./app/
+    depends_on:
+      - redis
+    command: "celery -A worker.celery_worker worker -l info"
+  
+  beat:
+    build: ./app/
+    depends_on:
+      - redis
+    command: "celery -A worker.celery_worker beat -l info"
+
+  fastapi:
+    build: ./web-server/
+    command: "uvicorn main:app --reload"
