@@ -44,7 +44,7 @@ def sql_instert_gen(snippet):
         # Commit your changes in the database
         db.commit()
         return json.dumps({
-            "response": "Insertion successful,
+            "response": "Insertion successful",
             "status": True
         })
     except:
