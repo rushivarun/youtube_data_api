@@ -1,4 +1,4 @@
-# youtube_data_api
+# YouTube Data API
 
 ## Project Goal
 
