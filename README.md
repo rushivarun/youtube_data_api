@@ -11,7 +11,6 @@ To make an API to fetch latest videos sorted in reverse chronological order of t
 - A basic search API to search the stored videos using their title and description.
 - Dockerize the project.
 - It should be scalable and optimised.
-- 
 ## Build Instructions
 ### Simple installation
 The command below, build the complete application using docker-compose
@@ -24,6 +23,7 @@ The command below, build the complete application using docker-compose
 docker-compose up
 ```
 ## Build applictions individually
+In order to build applications individually, the repootory comes with stand-alone Dockerfiles and theor corresponding docker-compose files. Follow the commands to build the application individually.
 ### To trigger the periodic Youtube API ping
 ```
 cd app
