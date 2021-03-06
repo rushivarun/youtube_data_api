@@ -14,6 +14,12 @@ To make an API to fetch latest videos sorted in reverse chronological order of t
 - 
 ## Build Instructions
 ### Simple installation
+The command below, build the complete application using docker-compose
+* Redis
+* MySQL
+* Celery Worker
+* Celery Beat
+* FastAPI web application
 ```
 docker-compose up
 ```
