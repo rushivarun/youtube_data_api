@@ -5,7 +5,6 @@ services:
     image: "redis:6.0-alpine"
     ports:
       - "6379:6379"
-  
   mysql:
     build: ./mysql-conf/
     ports:
@@ -17,10 +16,14 @@ services:
     build: .
     depends_on:
       - redis
+      - mysql
+    ports:
+      - "8000:8000"
     command: "celery -A worker.celery_worker worker -l info"
   
   beat:
     build: .
     depends_on:
       - redis
+      - mysql
     command: "celery -A worker.celery_worker beat -l info"

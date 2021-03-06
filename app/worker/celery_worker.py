@@ -2,6 +2,9 @@ from worker.celery_app import celery_app
 from googleapiclient.discovery import build
 import json
 import mysql.connector
+import pymysql.cursors
+import pymysql
+import mysql.connector
 from datetime import timedelta, datetime, timezone
 
 import logging
@@ -15,7 +18,7 @@ youtube = build("youtube", "v3", developerKey=api_key)
 
 # MySQL db connection.
 # Use env variables in prod inject using docker container
-db = mysql.connector.connect(host="0.0.0.0", user="root", passwd="my-secret-pw", database="yt_api")
+db = mysql.connector.connect(host="mysql", user="root", passwd="my_secret_pw", database="yt_api")
 mycursor = db.cursor()
 
 # Celery beat initiation for scheduling the task of pinging youtube constantly.

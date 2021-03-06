@@ -1,12 +1,15 @@
+amqp==5.0.5
 billiard==3.6.3.0
 cachetools==4.2.1
 celery==5.0.5
 certifi==2020.12.5
+cffi==1.14.5
 chardet==4.0.0
 click==7.1.2
 click-didyoumean==0.0.3
 click-plugins==1.1.1
 click-repl==0.1.6
+cryptography==3.4.6
 fastapi==0.63.0
 Flask==1.1.2
 google-api-core==1.26.0
@@ -29,7 +32,9 @@ prompt-toolkit==3.0.16
 protobuf==3.15.3
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
+pycparser==2.20
 pydantic==1.8.1
+PyMySQL==1.0.2
 pyparsing==2.4.7
 pytz==2021.1
 rake-nltk==1.0.4

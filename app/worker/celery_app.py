@@ -9,6 +9,6 @@ celery_app = None
 
 
 celery_app = Celery(
-        backend="redis://localhost:6379/0",
-        broker="redis://localhost:6379/1"
+        backend="redis://redis/0",
+        broker="redis://redis/1"
     )
