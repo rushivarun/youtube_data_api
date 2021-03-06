@@ -9,28 +9,29 @@ from rake_nltk import Rake
 
 import mysql.connector
 
-
+# Usinf basemodel by pydantic to create payloads of a certain approved types.
 class paginatePayload(BaseModel):
     page_number: int
 
 class searchPayload(BaseModel):
     query: str
 
-
+# Establoshing connection to the MYSQL server.
 db = mysql.connector.connect(host="mysql", user="root", passwd="my_secret_pw", database="yt_api")
 mycursor = db.cursor()
 
+# Rake is used to optimze the search result by extracting key words using NLTK.
 r = Rake()
 
 app = FastAPI()
 
+# API routes
 @app.post("/get")
 async def paginated(payload: paginatePayload):
 
     cursor_lead = (payload.page_number*10) - 10
     mycursor.execute('SELECT * FROM Football limit %s, %s', (cursor_lead, 10))
     data = list(mycursor.fetchall())
-    print(type(data))
     return json.dumps(data, indent=4)
 
 @app.post("/search")
@@ -50,6 +51,10 @@ async def search(payload: searchPayload):
             result = result + partial_response
 
     return json.dumps(result, indent=4)
+
+# For local development. Not required if running uvicorn from cli.
+if __name__ == '__main__':
+    uvicorn.run(app, port=8000, host='0.0.0.0')
 
 
 

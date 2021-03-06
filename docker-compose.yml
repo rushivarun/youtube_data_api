@@ -35,4 +35,10 @@ services:
     depends_on:
       - mysql
       - worker
-    command: "uvicorn main:app --reload"
+      - beat
+    command: >
+      /bin/bash -c "
+        sleep 10;
+        echo Holding till dependency setup;
+        uvicorn main:app --host 0.0.0.0;
+      "
