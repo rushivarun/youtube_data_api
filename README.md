@@ -12,7 +12,12 @@ To make an API to fetch latest videos sorted in reverse chronological order of t
 - Dockerize the project.
 - It should be scalable and optimised.
 - 
-## Installation Instructions
+## Build Instructions
+### Simple installation
+```
+docker-compose up
+```
+## Build applictions individually
 ### To trigger the periodic Youtube API ping
 ```
 cd app
