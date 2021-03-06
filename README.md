@@ -1,4 +1,4 @@
-# youtube_data_api
+# YouTube Data API
 
 ## Project Goal
 
@@ -11,8 +11,19 @@ To make an API to fetch latest videos sorted in reverse chronological order of t
 - A basic search API to search the stored videos using their title and description.
 - Dockerize the project.
 - It should be scalable and optimised.
-- 
-## Installation Instructions
+## Build Instructions
+### Simple installation
+The command below, build the complete application using docker-compose
+* Redis
+* MySQL
+* Celery Worker
+* Celery Beat
+* FastAPI web application
+```
+docker-compose up
+```
+## Build applictions individually
+In order to build applications individually, the repootory comes with stand-alone Dockerfiles and theor corresponding docker-compose files. Follow the commands to build the application individually.
 ### To trigger the periodic Youtube API ping
 ```
 cd app
