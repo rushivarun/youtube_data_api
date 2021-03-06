@@ -32,4 +32,7 @@ services:
     build: ./web_server/
     ports:
       - "8000:8000"
+    depends_on:
+      - mysql
+      - worker
     command: "uvicorn main:app --reload"

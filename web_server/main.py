@@ -17,7 +17,7 @@ class searchPayload(BaseModel):
     query: str
 
 
-db = mysql.connector.connect(host="localhost", user="root", passwd="my-secret-pw", database="yt_api")
+db = mysql.connector.connect(host="mysql", user="root", passwd="my_secret_pw", database="yt_api")
 mycursor = db.cursor()
 
 r = Rake()
